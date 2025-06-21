@@ -555,6 +555,12 @@ theorem IsIntegral.tower_bot_of_field {R A B : Type*} [CommRing R] [Field A]
     {x : A} (h : IsIntegral R (algebraMap A B x)) : IsIntegral R x :=
   h.tower_bot (algebraMap A B).injective
 
+theorem Module.finite_of_algebra_finiteType_of_noZeroSMulDivisors_finite [Algebra R S] [Algebra R T]
+    [Algebra S T] [NoZeroSMulDivisors S T] [Nontrivial T] [IsScalarTower R S T]
+    [Algebra.FiniteType R S] [Module.Finite R T] : Module.Finite R S :=
+  have : Algebra.IsIntegral R S := Algebra.IsIntegral.tower_bot T
+  Algebra.IsIntegral.finite
+
 theorem RingHom.isIntegralElem.of_comp {x : T} (h : (g.comp f).IsIntegralElem x) :
     g.IsIntegralElem x :=
   let ⟨p, hp, hp'⟩ := h
